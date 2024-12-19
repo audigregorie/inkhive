@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply font-montserrat w-[100vw] overflow-x-hidden bg-[#e6e6ff];
+}
