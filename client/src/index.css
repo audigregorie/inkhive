@@ -5,3 +5,8 @@
 body {
   @apply font-montserrat w-[100vw] overflow-x-hidden bg-[#e6e6ff];
 }
+
+.svg-animation {
+  @apply animate-spin;
+  animation-duration: 50000ms;
+}

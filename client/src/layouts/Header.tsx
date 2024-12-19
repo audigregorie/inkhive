@@ -34,7 +34,7 @@ const Header = () => {
         <Link to={'/'}>Most Popular</Link>
         <Link to={'/'}>About</Link>
         <SignedOut>
-          <Link to="/signin">
+          <Link to="/login">
             <button className="rounded-3xl bg-blue-800 px-4 py-2 text-white">Login 👋</button>
           </Link>
         </SignedOut>
