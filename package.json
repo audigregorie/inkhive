@@ -1,0 +1,16 @@
+{
+  "name": "inkhive",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "client": "yarn --cwd client dev",
+    "server": "yarn --cwd server dev",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "build": "yarn --cwd client build && yarn --cwd server build",
+    "start": "yarn --cwd server start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
