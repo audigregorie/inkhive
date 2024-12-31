@@ -4,17 +4,17 @@ import Image from '../../components/Image';
 const PostListItem = () => {
   return (
     <div className="flex flex-col gap-8 xl:flex-row">
-      <div className="md:w-3/5 xl:w-1/2">
+      <Link to="/testing" className="md:w-3/5 xl:w-1/2">
         <Image
           path="/public/france-upsplash.jpg"
           alt="Goldish brown and eloquent chateau in France"
           className="h-full w-full rounded-2xl object-cover"
           imageWidth="750"
         />
-      </div>
+      </Link>
 
       <div className="flex flex-col gap-4 xl:w-2/3">
-        <Link to="/" className="text-4xl font-semibold">
+        <Link to="/testing" className="text-4xl font-semibold">
           Aut debitis reiciendis quidem est. Odit itaque molestiae voluptatem ratione tempora eaque sed id fugiat.
         </Link>
         <div className="flex items-center gap-2 text-sm text-gray-400">
