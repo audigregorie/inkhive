@@ -21,22 +21,24 @@ const Home = () => {
           </p>
         </div>
 
-        <Link to="/create/:slug" className="relative hidden md:block">
-          <svg viewBox="0 0 200 200" width="200" height="200" className="svg-animation text-lg tracking-widest">
-            <path id="circlePath" fill="none" d="M 100, 100 m -75, 0 a 75, 75 0 1,1 150,0 a 75, 75 0 1,1 -150,0" />
-            <text>
-              <textPath href="#circlePath" startOffset="0%">
-                Write you story •
-              </textPath>
-              <textPath href="#circlePath" startOffset="50%">
-                Share your idea •
-              </textPath>
-            </text>
-          </svg>
+        <div className="relative hidden md:block">
+          <Link to="/create/:slug">
+            <svg viewBox="0 0 200 200" width="200" height="200" className="svg-animation text-lg tracking-widest">
+              <path id="circlePath" fill="none" d="M 100, 100 m -75, 0 a 75, 75 0 1,1 150,0 a 75, 75 0 1,1 -150,0" />
+              <text>
+                <textPath href="#circlePath" startOffset="0%">
+                  Write you story •
+                </textPath>
+                <textPath href="#circlePath" startOffset="50%">
+                  Share your idea •
+                </textPath>
+              </text>
+            </svg>
+          </Link>
           <Link to="/create" className="absolute inset-0 m-auto flex h-20 w-20 items-center justify-center rounded-full bg-blue-800">
             <GoArrowUpRight className="h-12 w-12 text-white" />
           </Link>
-        </Link>
+        </div>
       </div>
       <PostCategories />
       <FeaturedPosts />

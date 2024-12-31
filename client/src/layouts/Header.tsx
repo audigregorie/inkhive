@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 const Header = () => {
@@ -22,9 +22,14 @@ const Header = () => {
           <Link to={'/'}>Trending</Link>
           <Link to={'/'}>Most Popular</Link>
           <Link to={'/'}>About</Link>
-          <Link to={'/'}>
-            <button className="rounded-3xl bg-blue-800 px-4 py-2 text-white">Login 👋</button>
-          </Link>
+          <SignedOut>
+            <Link to="/login" className="rounded-3xl bg-blue-800 px-4 py-2 text-white">
+              Login 👋
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </div>
       {/* Desktop */}
