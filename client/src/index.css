@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply w-[100vw] overflow-x-hidden bg-[#e6e6ff] font-montserrat;
+}
+
+.debug {
+  @apply border border-red-800;
+}
+
+.svg-animation {
+  @apply animate-spin;
+  animation-duration: 50000ms;
+}
+
+.ql-container {
+  @apply !border-none;
+}
+
+.ql-toolbar {
+  @apply !border-none;
+}
+
+.ql-editor {
+  @apply !border-none;
+}
