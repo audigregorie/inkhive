@@ -1,0 +1,7 @@
+http://localhost:5000
+--silent
+--include
+Content-Type: application/json;
+
+GET /posts/slugtest
+

@@ -1,0 +1,6 @@
+http://localhost:5000
+--silent
+--include
+Content-Type: application/json
+
+DELETE /posts/677640bcc9e46b6cdc1ca2c2

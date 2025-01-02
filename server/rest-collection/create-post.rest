@@ -1,0 +1,13 @@
+http://localhost:5000
+--silent
+--include
+Content-Type: application/json; charset=utf-8
+
+Post /posts
+
+{
+  "title": "titlepostman",
+  "slug": "slugpostman",
+  "content": "contentpostman",
+  "user": "677630c74d28a5693d8496b6"
+}
