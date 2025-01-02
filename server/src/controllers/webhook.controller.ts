@@ -18,10 +18,11 @@ export const clerkWebhook = async (req: Request, res: Response) => {
   const svix_signature = headers['svix-signature'];
 
   if (!svix_id || !svix_timestamp || !svix_signature) {
-    return void res.status(400).json({
+    res.status(400).json({
       success: false,
       message: 'Error: Missing svix headers'
     });
+    return;
   }
 
   let evt: WebhookEvent;
@@ -34,30 +35,41 @@ export const clerkWebhook = async (req: Request, res: Response) => {
     }) as WebhookEvent;
   } catch (err: any) {
     console.log('Error: Could not verify webhook:', err.message);
-    return void res.status(400).json({
+    res.status(400).json({
       success: false,
       message: err.message
     });
+    return;
   }
 
-  console.log(evt.data);
+  if (evt.type === 'user.created') {
+    try {
+      const newUser = new User({
+        clerkUserId: evt.data.id,
+        username: evt.data.username || evt.data.email_addresses[0].email_address,
+        email: evt.data.email_addresses[0].email_address,
+        img: evt.data.profile_img_url
+      });
 
-  // if (evt.type === 'user.created') {
-  //   const newUser = new User({
-  //     clerkUserId: evt.data.id,
-  //     username: evt.data.username || evt.data.email_addresses[0].email_address,
-  //     email: evt.data.email_addresses[0].email_address,
-  //     img: evt.data.profile_img_url
-  //   });
+      await newUser.save();
+      console.log('New user saved:', newUser);
+    } catch (error) {
+      console.error('Error saving new user:', error);
+      res.status(500).json({ success: false, message: 'Error saving user' });
+      return;
+    }
+  }
 
-  //   await newUser.save();
-  //   console.log('New user saved:', newUser);
-  // }
-
-  // if (evt.type === 'user.deleted') {
-  //   const deletedUser = await User.findOneAndDelete({ clerkUserId: evt.data.id });
-  //   deletedUser ? console.log('Deleted user:', deletedUser) : console.warn(`No user found with clerkUserId: ${evt.data.id}`);
-  // }
+  if (evt.type === 'user.deleted') {
+    try {
+      const deletedUser = await User.findOneAndDelete({ clerkUserId: evt.data.id });
+      deletedUser ? console.log('Deleted user:', deletedUser) : console.warn(`No user found with clerkUserId: ${evt.data.id}`);
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).json({ success: false, message: 'Error deleting user' });
+      return;
+    }
+  }
 
   res.status(200).json({ message: 'Webhook received' });
 };
