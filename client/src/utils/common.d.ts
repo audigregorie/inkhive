@@ -5,3 +5,10 @@ export type ImageProps = {
   imageHeight?: string;
   className: string;
 };
+
+export type PostData = {
+  title: string;
+  category: string;
+  description: string;
+  content: string;
+};

@@ -6,7 +6,7 @@ import { WebhookEvent } from '../utils/common';
 export const clerkWebhook = async (req: Request, res: Response) => {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
-  if (!WEBHOOK_SECRET) throw new Error('Error: Clerk webhook secret not found!');
+  if (!WEBHOOK_SECRET) throw new Error('Error: Clerk webhook secret not found');
 
   const wh = new Webhook(WEBHOOK_SECRET);
   const payload = req.body;

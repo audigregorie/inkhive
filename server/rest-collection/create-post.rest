@@ -2,12 +2,12 @@ http://localhost:5000
 --silent
 --include
 Content-Type: application/json; charset=utf-8
+Authentication: Bearer eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDExMUFBQSIsImtpZCI6Imluc18ycjRaNzVpZHdtYzljZ2d6STZETUlsOTZ1dmoiLCJ0eXAiOiJKV1QifQ.eyJhenAiOiJodHRwOi8vbG9jYWxob3N0OjUxNzMiLCJleHAiOjE3MzU5MDY4MzgsImZ2YSI6Wzk5OTk5LC0xXSwiaWF0IjoxNzM1OTA2Nzc4LCJpc3MiOiJodHRwczovL3dvcnRoeS10ZXJyYXBpbi05LmNsZXJrLmFjY291bnRzLmRldiIsIm5iZiI6MTczNTkwNjc2OCwic2lkIjoic2Vzc18ycjRpUWxZcXM2Tnh1b1lOYnRhWkcxWkkwbFAiLCJzdWIiOiJ1c2VyXzJyNGlRaW9Bd3c1RXNNTVdrUlRtMEh5SVU4RiJ9.jiw7aUo_uuN9oEyR787bQh_ZxsnftD1aXMK5JDdUsaGrioBNEncd5P_iGnHnZ9XhA0HpXp0wcYriGSvU8RBr8CsnFfKXvOfXV19a7QmrZk_31pDpFSgIWekC8Uyqfd8xoeE5FqDcNCaQdioIe_MKHyLtQpI79GD_CVdJ_aS6-vOzaDaJQTYLf6rSSMaXdmxgzt5emhkViXaXWN4nWJC925DXOGxxvjRSSmxkdaev8zdzLKP4c-Cq8MPmc4a0eMzv5PW8kZU_Bs3PTZQMEfFY5TJSDBipA3CLZqycHllROIyB3mIC6Tdk5MEkq9TFtFvpO56GGGIT8OOJxmkem73t4g
 
 Post /posts
 
 {
-  "title": "titlepostman",
+  "title": "titlepostman"
   "slug": "slugpostman",
   "content": "contentpostman",
-  "user": "677630c74d28a5693d8496b6"
 }
