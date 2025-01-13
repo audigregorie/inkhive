@@ -1,10 +1,30 @@
 import { Request, Response } from 'express';
 import Post from '../models/post.model';
 import { User } from '../models/user.model';
+import ImageKit from 'imagekit';
+
+export const uploadAuth = async (req: Request, res: Response) => {
+  const imagekit = new ImageKit({
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT as string,
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY as string,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY as string
+  });
+  const result = imagekit.getAuthenticationParameters();
+  res.send(result);
+};
 
 export const getPosts = async (req: Request, res: Response) => {
-  const posts = await Post.find();
-  res.status(200).json(posts);
+  const pageNumber = parseInt(req.query.page as string) || 1;
+  const limitNumber = parseInt(req.query.limit as string) || 2;
+
+  const posts = await Post.find()
+    .limit(limitNumber)
+    .skip((pageNumber - 1) * limitNumber);
+
+  const totalPosts = await Post.countDocuments();
+  const hasMorePosts = pageNumber * limitNumber < totalPosts;
+
+  res.status(200).json({ posts, hasMorePosts });
 };
 
 export const getPost = async (req: Request, res: Response) => {

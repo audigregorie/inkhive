@@ -5,7 +5,7 @@ import Posts from './pages/Posts';
 import SinglePost from './pages/SinglePost';
 import Login from './features/Auth/Login';
 import Register from './features/Auth/Register';
-import ManagePost from './pages/ManagePost';
+import CreatePost from './pages/CreatePost';
 
 function App() {
   const router = createBrowserRouter([
@@ -21,13 +21,12 @@ function App() {
           element: <Posts />
         },
         {
-          // path: '/:slug',
-          path: '/testing',
+          path: '/:slug',
           element: <SinglePost />
         },
         {
           path: '/create',
-          element: <ManagePost />
+          element: <CreatePost />
         },
         {
           path: '/login',

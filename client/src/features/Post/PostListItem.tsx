@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import Image from '../../components/Image';
+import { PostListItemProps } from '../../utils/common';
 
-const PostListItem = () => {
+const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
   return (
     <div className="flex flex-col gap-8 xl:flex-row">
       <Link to="/testing" className="md:w-3/5 xl:w-1/2">
