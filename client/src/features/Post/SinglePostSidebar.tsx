@@ -3,16 +3,17 @@ import Image from '../../components/Image';
 import { IoLogoFacebook, IoLogoInstagram } from 'react-icons/io5';
 import SinglePostSidebarAction from './SinglePostSidebarAction';
 import Search from '../../components/Search';
+import { PostListItemProps } from '../../utils/common';
 
-const SinglePostSidebar = () => {
+const SinglePostSidebar: React.FC<PostListItemProps> = ({ post }) => {
   return (
     <div className="sticky top-8 h-max px-4">
       <h2 className="mb-4 text-sm font-light">Author</h2>
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
-          <Image path="/public/christian-engineer-upsplash.jpg" alt="User profile image" className="h-12 w-12 rounded-full" imageWidth="48" imageHeight="48" />
+          {post.user.image && <Image path={post.user.image} alt="User profile image" className="h-12 w-12 rounded-full" imageWidth="48" imageHeight="48" />}
           <Link to="/" className="text-blue-800">
-            Yves Saint Laurent
+            {post.user.username}
           </Link>
         </div>
         <p className="text-xs">Eos nobis assumenda possimus.</p>

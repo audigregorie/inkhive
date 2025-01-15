@@ -45,7 +45,7 @@ const FeaturedPosts = () => {
         <div className="flex justify-between gap-4 lg:h-1/3">
           <div className="aspect-video w-1/3">
             <Image
-              path="/public/bouquet-of-flowers-upsplash.jpg"
+              path="/public/fabian-mardi-o3TZx8_j7FE-unsplash.jpg"
               alt="A bouquet of flowers"
               className="h-full w-full rounded-3xl object-cover"
               imageWidth="280"

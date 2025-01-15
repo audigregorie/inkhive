@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import { getComments } from '../controllers/comment.controller';
+import { addComment, deleteComment, getPostComments } from '../controllers/comment.controller';
 
 export const commentRouter: Router = Router();
-commentRouter.get('/', getComments);
+commentRouter.get('/:postId', getPostComments);
+commentRouter.post('/:postId', addComment);
+commentRouter.delete('/:id', deleteComment);

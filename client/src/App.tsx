@@ -6,6 +6,7 @@ import SinglePost from './pages/SinglePost';
 import Login from './features/Auth/Login';
 import Register from './features/Auth/Register';
 import CreatePost from './pages/CreatePost';
+import NotFound from './components/NotFound';
 
 function App() {
   const router = createBrowserRouter([
@@ -35,6 +36,14 @@ function App() {
         {
           path: '/register',
           element: <Register />
+        },
+        {
+          path: '/not-found',
+          element: <NotFound />
+        },
+        {
+          path: '*',
+          element: <NotFound />
         }
       ]
     }

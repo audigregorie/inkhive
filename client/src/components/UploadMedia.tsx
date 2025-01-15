@@ -1,5 +1,4 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
-import ErrorSpan from './ErrorSpan';
 import { UploadMediaProps } from '../utils/common';
 import { useRef } from 'react';
 
@@ -29,7 +28,7 @@ const UploadMedia: React.FC<UploadMediaProps> = ({ children, setProgress, setDat
 
   const handleUploadError = (err: any) => {
     console.error('Upload error:', err);
-    setOnErrorSpan(<ErrorSpan message="Failed to upload image. Please try again." />);
+    setOnErrorSpan(<span className="text-sm text-red-500">Failed to upload image. Please try again.</span>);
   };
 
   const handleUploadSuccess = (res: any) => {

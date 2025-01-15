@@ -1,38 +1,70 @@
 import { ReactNode } from 'react';
 
-export type ImageProps = {
+export interface ImageProps {
   path: string;
   alt: string;
   imageWidth?: string;
   imageHeight?: string;
   className: string;
-};
+}
 
-export type ErrorSpanProps = {
-  message: string;
-};
-
-export type UploadMediaProps = {
+export interface UploadMediaProps {
   children: ReactNode;
   setProgress: (progress: number) => void;
   setData: (data: ImageKitMediaResponse) => void;
   setOnErrorSpan: (errorSpan: ReactNode | null) => void;
   type: 'image' | 'video';
-};
+}
 
-export type PostListItemProps = {
-  post: PostData;
-};
-
-export type ImageKitMediaResponse = {
+export interface ImageKitMediaResponse {
   filePath: string;
   url: string;
-};
+}
 
-export type PostData = {
-  image: string;
+export interface BaseDBData {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  _v: number;
+}
+
+export interface PostData extends BaseDBData, NewPost {
+  slug: string;
+  user: {
+    _id: string;
+    username: string;
+    image?: string;
+  };
+  isFeatured: boolean;
+  visit: number;
+}
+
+export interface NewPost {
+  image?: string;
   title: string;
   category: string;
   description: string;
   content: string;
-};
+}
+
+export interface PostListItemProps {
+  post: PostData;
+}
+
+export interface CommentData extends BaseDBData, NewComment {
+  user: {
+    _id: string;
+    username: string;
+    image?: string;
+  };
+  post: string;
+  description: string;
+}
+
+export interface NewComment {
+  description: string;
+}
+
+export interface CommentListItemProps {
+  comment: CommentData;
+}

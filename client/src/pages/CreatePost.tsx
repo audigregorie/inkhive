@@ -1,13 +1,14 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
-import { ImageKitMediaResponse, PostData } from '../utils/common';
+import { ImageKitMediaResponse, NewPost } from '../utils/common';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { MoonLoader } from 'react-spinners';
 import UploadMedia from '../components/UploadMedia';
+import { toast } from 'sonner';
 
 const CreatePost = () => {
   const [value, setValue] = useState<string>('');
@@ -16,6 +17,7 @@ const CreatePost = () => {
   const [video, setVideo] = useState<ImageKitMediaResponse | null>(null);
   const [progress, setProgress] = useState<number>(0);
 
+  // testing fix Error span in multiple places
   const [onErrorSpanCover, setOnErrorSpanCover] = useState<ReactNode | null>(null);
   const [onErrorSpanImage, setOnErrorSpanImage] = useState<ReactNode | null>(null);
   const [onErrorSpanVideo, setOnErrorSpanVideo] = useState<ReactNode | null>(null);
@@ -25,7 +27,7 @@ const CreatePost = () => {
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: async (newPost: PostData) => {
+    mutationFn: async (newPost: NewPost) => {
       const token = await getToken();
       return axios.post(`${import.meta.env.VITE_API_URL}/posts`, newPost, {
         headers: {
@@ -33,11 +35,12 @@ const CreatePost = () => {
         }
       });
     },
-    onError: (err) => {
-      console.error('Error creating post:', err);
-    },
     onSuccess: (res) => {
       navigate(`/${res.data.slug}`);
+    },
+    onError: (err) => {
+      toast.error('Error creating post');
+      console.error('Error creating post:', err);
     }
   });
 
@@ -45,7 +48,7 @@ const CreatePost = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data: PostData = {
+    const data: NewPost = {
       image: cover?.filePath || '',
       title: formData.get('title')?.toString() ?? '',
       category: formData.get('category')?.toString() ?? '',

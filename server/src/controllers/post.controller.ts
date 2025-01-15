@@ -18,6 +18,7 @@ export const getPosts = async (req: Request, res: Response) => {
   const limitNumber = parseInt(req.query.limit as string) || 2;
 
   const posts = await Post.find()
+    .populate('user', 'username')
     .limit(limitNumber)
     .skip((pageNumber - 1) * limitNumber);
 
@@ -28,7 +29,7 @@ export const getPosts = async (req: Request, res: Response) => {
 };
 
 export const getPost = async (req: Request, res: Response) => {
-  const post = await Post.findOne({ slug: req.params.slug });
+  const post = await Post.findOne({ slug: req.params.slug }).populate('user', 'username image');
   res.status(200).json(post);
 };
 

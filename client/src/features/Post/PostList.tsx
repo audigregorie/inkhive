@@ -15,7 +15,6 @@ const fetchPosts = async (pageParam: number) => {
 };
 
 const PostList = () => {
-  // const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
   const { data, error, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
     queryKey: ['posts'],
     queryFn: ({ pageParam = 1 }) => fetchPosts(pageParam),
@@ -34,28 +33,20 @@ const PostList = () => {
   console.log('Fetched data:', data);
 
   return (
-    // <div className="mb-8 flex flex-col gap-12">
-    //   <InfiniteScroll
-    //     dataLength={allPosts.length}
-    //     next={fetchNextPage}
-    //     hasMore={!!hasNextPage}
-    //     loader={<h4>Loading more posts...</h4>}
-    //     endMessage={
-    //       <p>
-    //         <b>All posts loaded.</b>
-    //       </p>
-    //     }>
-    //     {allPosts.map((post) => (
-    //       <PostListItem key={post._id} post={post} />
-    //     ))}
-    //   </InfiniteScroll>
-    // </div>
-
-    <div className="mb-8 flex flex-col gap-12">
+    <InfiniteScroll
+      dataLength={allPosts.length}
+      next={fetchNextPage}
+      hasMore={!!hasNextPage}
+      loader={<h4>Loading more posts...</h4>}
+      endMessage={
+        <p>
+          <b>All posts loaded.</b>
+        </p>
+      }>
       {allPosts.map((post) => (
         <PostListItem key={post._id} post={post} />
       ))}
-    </div>
+    </InfiniteScroll>
   );
 };
 
