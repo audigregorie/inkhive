@@ -37,6 +37,7 @@ export const addComment = async (req: Request, res: Response) => {
 export const deleteComment = async (req: Request, res: Response) => {
   const clerkUserId = req.auth.userId;
   const id = req.params.id;
+
   if (!clerkUserId) {
     res.status(401).json('Not authenticated!');
     return;
