@@ -1,5 +1,5 @@
 import { IKImage } from 'imagekitio-react';
-import { ImageProps } from '../utils/common';
+import { ImageProps } from '../utils/interfaces';
 
 const Image: React.FC<ImageProps> = ({ path, alt, imageWidth, imageHeight, className }) => {
   return (

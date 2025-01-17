@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Post from '../models/post.model';
 import { User } from '../models/user.model';
 import ImageKit from 'imagekit';
+import { INewPost, IPost, IUser } from '../utils/interfaces';
 
 export const uploadAuth = async (req: Request, res: Response) => {
   const imagekit = new ImageKit({
@@ -17,7 +18,7 @@ export const getPosts = async (req: Request, res: Response) => {
   const pageNumber = parseInt(req.query.page as string) || 1;
   const limitNumber = parseInt(req.query.limit as string) || 2;
 
-  const posts = await Post.find()
+  const posts = await Post.find<IPost>()
     .populate('user', 'username')
     .limit(limitNumber)
     .skip((pageNumber - 1) * limitNumber);
@@ -29,7 +30,7 @@ export const getPosts = async (req: Request, res: Response) => {
 };
 
 export const getPost = async (req: Request, res: Response) => {
-  const post = await Post.findOne({ slug: req.params.slug }).populate('user', 'username image');
+  const post = await Post.findOne<IPost>({ slug: req.params.slug }).populate('user', 'username image');
   res.status(200).json(post);
 };
 
@@ -40,7 +41,7 @@ export const createPost = async (req: Request, res: Response) => {
     return;
   }
 
-  const user = await User.findOne({ clerkUserId });
+  const user = await User.findOne<IUser>({ clerkUserId });
   if (!user) {
     res.status(404).json('User not found');
     return;
@@ -53,12 +54,12 @@ export const createPost = async (req: Request, res: Response) => {
     .toLowerCase();
   let counter = 2;
 
-  while (await Post.findOne({ slug })) {
+  while (await Post.findOne<IPost>({ slug })) {
     slug = `${slug}-${counter}`;
     counter++;
   }
 
-  const newPost = new Post({ user: user._id, slug, ...req.body });
+  const newPost = new Post<INewPost>({ user: user._id, slug, ...req.body });
   const savedPost = await newPost.save();
   res.status(200).json(savedPost);
 };
@@ -70,13 +71,13 @@ export const deletePost = async (req: Request, res: Response) => {
     return;
   }
 
-  const user = await User.findOne({ clerkUserId });
+  const user = await User.findOne<IUser>({ clerkUserId });
   if (!user) {
     res.status(404).json('User not found');
     return;
   }
 
-  const deletedPost = await Post.findOneAndDelete({ _id: req.params.id, user: user._id });
+  const deletedPost = await Post.findOneAndDelete<IPost>({ _id: req.params.id, user: user._id });
 
   if (!deletedPost) {
     res.status(403).json('Users are only permitted to delete their own posts');

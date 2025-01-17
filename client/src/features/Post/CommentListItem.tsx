@@ -1,6 +1,6 @@
 import { format } from 'timeago.js';
 // import Image from '../../components/Image';
-import { CommentListItemProps } from '../../utils/common';
+import { CommentListItemProps } from '../../utils/interfaces';
 import { Avatar } from '@mui/material';
 import { getInitials } from '../../utils/helpers';
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Image from '../../components/Image';
-import { PostListItemProps } from '../../utils/common';
+import { PostListItemProps } from '../../utils/interfaces';
 import { format } from 'timeago.js';
 
 const PostListItem = ({ post }: PostListItemProps) => {

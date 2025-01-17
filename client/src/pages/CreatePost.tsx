@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
-import { ImageKitMediaResponse, NewPost } from '../utils/common';
+import { ImageKitMediaResponse, NewPost } from '../utils/interfaces';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import ReactQuill from 'react-quill-new';
@@ -21,6 +21,10 @@ const CreatePost = () => {
   const [onErrorSpanCover, setOnErrorSpanCover] = useState<ReactNode | null>(null);
   const [onErrorSpanImage, setOnErrorSpanImage] = useState<ReactNode | null>(null);
   const [onErrorSpanVideo, setOnErrorSpanVideo] = useState<ReactNode | null>(null);
+
+  const [title, setTitle] = useState<string>('');
+  const [category, setCategory] = useState<string>('general');
+  const [description, setDescription] = useState<string>('');
 
   const { isLoaded, isSignedIn } = useUser();
   const { getToken } = useAuth();
@@ -47,16 +51,15 @@ const CreatePost = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const data: NewPost = {
+    const formData: NewPost = {
       image: cover?.filePath || '',
-      title: formData.get('title')?.toString() ?? '',
-      category: formData.get('category')?.toString() ?? '',
-      description: formData.get('description')?.toString() ?? '',
+      title: title.trim(),
+      category: category,
+      description: description,
       content: value
     };
 
-    mutation.mutate(data);
+    mutation.mutate(formData);
   };
 
   useEffect(() => {
@@ -85,13 +88,25 @@ const CreatePost = () => {
           {onErrorSpanCover}
         </div>
 
-        <input type="text" name="title" placeholder="Title" className="bg-transparent text-4xl font-semibold outline-none" />
+        <input
+          onChange={(e) => setTitle(e.currentTarget.value)}
+          value={title}
+          type="text"
+          name="title"
+          placeholder="Title"
+          className="bg-transparent text-4xl font-semibold outline-none"
+        />
 
         <div className="flex items-center gap-4">
           <label htmlFor="category" className="text-sm">
             Choose a category:
           </label>
-          <select name="category" id="category" className="rounded-xl bg-white p-2 shadow-md">
+          <select
+            onChange={(e) => setCategory(e.currentTarget.value)}
+            value={category}
+            name="category"
+            id="category"
+            className="rounded-xl bg-white p-2 shadow-md">
             <option value="general">General</option>
             <option value="web-design">Web Design</option>
             <option value="development">Development</option>
@@ -101,7 +116,14 @@ const CreatePost = () => {
           </select>
         </div>
 
-        <textarea name="description" id="description" placeholder="A short description" className="rounded-xl bg-white p-4 shadow-md" />
+        <textarea
+          onChange={(e) => setDescription(e.currentTarget.value)}
+          value={description}
+          name="description"
+          id="description"
+          placeholder="A short description"
+          className="rounded-xl bg-white p-4 shadow-md"
+        />
 
         <div className="flex flex-col">
           <div className="mb-2 flex gap-2">

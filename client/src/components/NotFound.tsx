@@ -8,11 +8,11 @@ const NotFound = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-100 p-4 text-center">
+    <div className="flex h-screen flex-col items-center justify-center p-4 text-center">
       <h1 className="mb-4 text-6xl font-bold text-gray-800">404</h1>
-      <p className="mb-6 text-lg text-gray-600">Oops! The page you’re looking for doesn’t exist.</p>
-      <button onClick={navigateHome} className="rounded-md bg-[#64f3d5] px-6 py-3 text-lg font-medium text-black transition-all">
-        Go Back Home
+      <p className="mb-6 text-lg text-gray-600">Sorry! The page you’re looking for doesn’t exist.</p>
+      <button onClick={navigateHome} className="rounded-md bg-blue-800 px-6 py-3 text-lg font-medium text-[#e6e6ff] transition-all">
+        Back Home
       </button>
     </div>
   );

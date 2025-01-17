@@ -1,5 +1,5 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
-import { UploadMediaProps } from '../utils/common';
+import { UploadMediaProps } from '../utils/interfaces';
 import { useRef } from 'react';
 
 const authenticator = async () => {

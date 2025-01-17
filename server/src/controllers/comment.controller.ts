@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { Comment } from '../models/comment.model';
 import { User } from '../models/user.model';
+import { IComment, INewComment, IUser } from '../utils/interfaces';
 
 export const getPostComments = async (req: Request, res: Response) => {
-  const comments = await Comment.find({ post: req.params.postId }).populate('user', 'username image').sort({ createdAt: -1 });
+  const comments = await Comment.find<IComment>({ post: req.params.postId }).populate('user', 'username image').sort({ createdAt: -1 });
 
   res.status(200).json(comments);
 };
@@ -17,13 +18,13 @@ export const addComment = async (req: Request, res: Response) => {
     return;
   }
 
-  const user = await User.findOne({ clerkUserId });
+  const user = await User.findOne<IUser>({ clerkUserId });
   if (!user) {
     res.status(404).json('User not found');
     return;
   }
 
-  const newComment = new Comment({
+  const newComment = new Comment<INewComment>({
     ...req.body,
     user: user._id,
     post: postId
@@ -43,13 +44,13 @@ export const deleteComment = async (req: Request, res: Response) => {
     return;
   }
 
-  const user = await User.findOne({ clerkUserId });
+  const user = await User.findOne<IUser>({ clerkUserId });
   if (!user) {
     res.status(404).json('User not found');
     return;
   }
 
-  const deletedComment = await Comment.findOneAndDelete({ _id: id, user: user._id });
+  const deletedComment = await Comment.findOneAndDelete<IComment>({ _id: id, user: user._id });
   if (!deletedComment) {
     res.status(403).json('Users are only permitted to delete their own comments');
     return;

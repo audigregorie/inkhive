@@ -3,9 +3,9 @@ import Image from '../../components/Image';
 import { IoLogoFacebook, IoLogoInstagram } from 'react-icons/io5';
 import SinglePostSidebarAction from './SinglePostSidebarAction';
 import Search from '../../components/Search';
-import { PostListItemProps } from '../../utils/common';
+import { PostListItemProps } from '../../utils/interfaces';
 
-const SinglePostSidebar: React.FC<PostListItemProps> = ({ post }) => {
+const SinglePostSidebar = ({ post }: PostListItemProps) => {
   return (
     <div className="sticky top-8 h-max px-4">
       <h2 className="mb-4 text-sm font-light">Author</h2>
@@ -27,7 +27,7 @@ const SinglePostSidebar: React.FC<PostListItemProps> = ({ post }) => {
         </div>
       </div>
 
-      <SinglePostSidebarAction />
+      <SinglePostSidebarAction post={post} />
       <h2 className="mb-4 mt-8 text-sm font-light">Categories</h2>
       <div className="flex flex-col gap-2 text-sm">
         <Link to="" className="underline">

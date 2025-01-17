@@ -5,7 +5,7 @@ import CommentList from '../features/Post/CommentList';
 import { format } from 'timeago.js';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { PostData } from '../utils/common';
+import { PostData } from '../utils/interfaces';
 
 const fetchPost = async (slug: string): Promise<PostData> => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${slug}`);
@@ -32,7 +32,7 @@ const SinglePost = () => {
 
   if (isLoading) return 'loading';
   if (error) return 'An error has occurred: ' + error.message;
-  if (!post) return 'Post not found!';
+  if (!post) return navigate('/not-found');
 
   return (
     <div className="flex flex-col gap-8">
