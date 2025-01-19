@@ -8,6 +8,9 @@ const PostCategories = () => {
         <Link to="/posts" className="rounded-full bg-blue-800 px-4 py-2 text-white">
           All Posts
         </Link>
+        <Link to="/posts?category=web-design" className="rounded-full px-4 py-2 hover:bg-blue-50">
+          Web Design
+        </Link>
         <Link to="/posts?category=development" className="rounded-full px-4 py-2 hover:bg-blue-50">
           Development
         </Link>
