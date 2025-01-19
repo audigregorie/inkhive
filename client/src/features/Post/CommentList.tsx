@@ -67,7 +67,6 @@ const CommentList = ({ postId }: { postId: string }) => {
       e.preventDefault();
       e.currentTarget.requestSubmit();
     }
-    setDescription('');
   };
 
   return (
@@ -87,9 +86,9 @@ const CommentList = ({ postId }: { postId: string }) => {
         </button>
       </form>
       {isPending ? (
-        'loading...'
+        <span>loading...</span>
       ) : error ? (
-        'Error creating comment'
+        <span>Error creating comment</span>
       ) : (
         <>
           {mutation.isPending && (
@@ -107,13 +106,14 @@ const CommentList = ({ postId }: { postId: string }) => {
                   image: user?.imageUrl ?? ''
                 }
               }}
+              postId={postId}
             />
           )}
         </>
       )}
 
       {comments.map((comment) => (
-        <CommentListItem key={comment._id} comment={comment} />
+        <CommentListItem key={comment._id} comment={comment} postId={postId} />
       ))}
     </div>
   );

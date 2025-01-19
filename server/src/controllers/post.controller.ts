@@ -71,6 +71,13 @@ export const deletePost = async (req: Request, res: Response) => {
     return;
   }
 
+  const role = req.auth.sessionClaims?.metadata?.role || 'user';
+  if (role === 'admin') {
+    await Post.findByIdAndDelete<IPost>(req.params.id);
+    res.status(200).json('Post deleted sucessfully');
+    return;
+  }
+
   const user = await User.findOne<IUser>({ clerkUserId });
   if (!user) {
     res.status(404).json('User not found');

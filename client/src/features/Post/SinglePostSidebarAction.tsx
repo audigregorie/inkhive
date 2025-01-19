@@ -27,6 +27,7 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
     }
   });
 
+  const isAdmin = user?.publicMetadata?.role === 'admin' || false;
   const isSaved = savedPosts?.data?.some((savedPost: string) => savedPost === post._id);
 
   const deleteMutation = useMutation({
@@ -87,9 +88,9 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
     <>
       <h1 className="mb-4 mt-8 text-sm font-light">Actions</h1>
       {isPending ? (
-        'Loading...'
+        <span>Loading...</span>
       ) : error ? (
-        'Failed to fetch saved posts'
+        <span>Failed to fetch saved posts</span>
       ) : (
         <div onClick={handleSave} className="flex cursor-pointer items-center gap-2 pb-2 text-sm">
           {saveMutation.isPending ? (
@@ -107,7 +108,7 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
           {saveMutation.isPending && <span className="text-xs">In progress...</span>}
         </div>
       )}
-      {user && post.user.username === user.username && (
+      {user && (post.user.username === user.username || isAdmin) && (
         <div onClick={handleDelete} className="flex cursor-pointer items-center gap-2 text-sm">
           <IoTrash className="h-4 w-4 text-red-700" />
           <span>Delete this post</span>

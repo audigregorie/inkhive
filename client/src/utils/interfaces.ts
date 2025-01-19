@@ -51,7 +51,7 @@ export interface PostListItemProps {
   post: PostData;
 }
 
-export interface CommentData extends BaseDBData, NewComment {
+export interface CommentData extends BaseDBData {
   user: {
     _id: string;
     username: string;
@@ -67,4 +67,5 @@ export interface NewComment {
 
 export interface CommentListItemProps {
   comment: CommentData;
+  postId: string;
 }

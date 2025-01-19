@@ -44,6 +44,13 @@ export const deleteComment = async (req: Request, res: Response) => {
     return;
   }
 
+  const role = req.auth.sessionClaims?.metadata?.role || 'user';
+  if (role === 'admin') {
+    await Comment.findByIdAndDelete<IComment>(req.params.id);
+    res.status(200).json('Comment deleted');
+    return;
+  }
+
   const user = await User.findOne<IUser>({ clerkUserId });
   if (!user) {
     res.status(404).json('User not found');
