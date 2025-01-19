@@ -1,4 +1,4 @@
-import { IoBookmark, IoBookmarkOutline, IoTrash } from 'react-icons/io5';
+import { IoBookmark, IoBookmarkOutline, IoStar, IoStarOutline, IoTrash } from 'react-icons/io5';
 import { PostListItemProps } from '../../utils/interfaces';
 import { useAuth, useUser } from '@clerk/clerk-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -73,6 +73,29 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
     }
   });
 
+  const featureMutation = useMutation({
+    mutationFn: async () => {
+      const token = await getToken();
+      return axios.patch(
+        `${import.meta.env.VITE_API_URL}/posts/feature`,
+        {
+          postId: post._id
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['post', post.slug] });
+    },
+    onError: () => {
+      toast.error('Failed to delete post');
+    }
+  });
+
   const handleDelete = () => {
     deleteMutation.mutate();
   };
@@ -82,6 +105,10 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
       navigate('/login');
     }
     saveMutation.mutate();
+  };
+
+  const handleFeature = () => {
+    featureMutation.mutate();
   };
 
   return (
@@ -105,14 +132,33 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
             <IoBookmarkOutline className="h-4 w-4" />
           )}
           <span>Save this post</span>
-          {saveMutation.isPending && <span className="text-xs">In progress...</span>}
+          {saveMutation.isPending && <span className="text-xs">(In progress...)</span>}
         </div>
       )}
+
+      {isAdmin && (
+        <div onClick={handleFeature} className="flex cursor-pointer items-center gap-2 pb-2 text-sm">
+          {featureMutation.isPending ? (
+            post.isFeatured ? (
+              <IoStarOutline />
+            ) : (
+              <IoStar />
+            )
+          ) : post.isFeatured ? (
+            <IoStar className="h-4 w-4" />
+          ) : (
+            <IoStarOutline className="h-4 w-4" />
+          )}
+          <span>Feature this post</span>
+          {featureMutation.isPending && <span className="text-xs">In progress...</span>}
+        </div>
+      )}
+
       {user && (post.user.username === user.username || isAdmin) && (
         <div onClick={handleDelete} className="flex cursor-pointer items-center gap-2 text-sm">
           <IoTrash className="h-4 w-4 text-red-700" />
           <span>Delete this post</span>
-          {deleteMutation.isPending && <span className="text-xs">in progress...</span>}
+          {deleteMutation.isPending && <span className="text-xs">(In progress...)</span>}
         </div>
       )}
     </>

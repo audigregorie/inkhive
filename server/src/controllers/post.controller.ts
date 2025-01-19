@@ -91,3 +91,28 @@ export const deletePost = async (req: Request, res: Response) => {
   }
   res.status(200).json('Post deleted sucessfully');
 };
+
+export const featurePost = async (req: Request, res: Response) => {
+  const clerkUserId = req.auth.userId;
+  if (!clerkUserId) {
+    res.status(401).json('User not authenticated');
+    return;
+  }
+
+  const role = req.auth.sessionClaims?.metadata?.role || 'user';
+  if (role !== 'admin') {
+    res.status(403).json('Admins are only permitted to feature posts');
+  }
+
+  const postId = req.body.postId;
+  const post = await Post.findById(postId);
+  if (!post) {
+    res.status(404).json('Post not found');
+    return;
+  }
+
+  const isFeatured = post.isFeatured;
+  const updatedPost = await Post.findByIdAndUpdate(postId, { isFeatured: !isFeatured }, { new: true });
+
+  res.status(200).json(updatedPost);
+};

@@ -59,8 +59,8 @@ const SinglePost = () => {
         )}
       </div>
 
-      <div className="flex flex-col gap-12 md:flex-row">
-        <div className="flex flex-col gap-6 text-justify lg:text-lg">{post.content}</div>
+      <div className="flex flex-col justify-between md:flex-row">
+        <div className="flex flex-col gap-6 text-justify lg:w-[75%] lg:text-lg">{post.content}</div>
         {post && <SinglePostSidebar post={post} />}
       </div>
       <CommentList postId={post._id} />

@@ -7,7 +7,7 @@ import { PostListItemProps } from '../../utils/interfaces';
 
 const SinglePostSidebar = ({ post }: PostListItemProps) => {
   return (
-    <div className="sticky top-8 h-max px-4">
+    <div className="sticky top-8 h-max pr-2">
       <h2 className="mb-4 text-sm font-light">Author</h2>
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">

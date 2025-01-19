@@ -50,7 +50,7 @@ const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
         {user && (comment.user.username === user.username || isAdmin) && (
           <span onClick={handleDelete} className="cursor-pointer text-xs text-red-300 hover:text-red-500">
             Delete comment
-            {deleteMutation.isPending && <span>In progress..</span>}
+            {deleteMutation.isPending && <span>(In progress...)</span>}
           </span>
         )}
       </div>
