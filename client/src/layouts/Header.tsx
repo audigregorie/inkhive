@@ -1,16 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { SignedIn, SignedOut, useAuth, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-
-  const { getToken } = useAuth();
-
-  useEffect(() => {
-    getToken().then((token) => console.log(token));
-  });
 
   return (
     <header className="flex h-16 items-center justify-between md:h-20">

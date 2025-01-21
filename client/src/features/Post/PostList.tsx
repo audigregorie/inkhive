@@ -4,15 +4,22 @@ import PostListItem from './PostListItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSearchParams } from 'react-router-dom';
 
-const fetchPosts = async (pageParam: number, searchParams: any) => {
+const fetchPosts = async (pageParam: number, searchParams: URLSearchParams) => {
   try {
-    const searchParamsObj = Object.entries([...searchParams]);
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts`, {
-      params: { page: pageParam, searchParamsObj }
-    });
+    const searchParamsObj = Object.fromEntries([...searchParams]);
+    console.log(searchParamsObj);
+
+    const params = {
+      page: pageParam,
+      limit: 2,
+      ...searchParamsObj
+    };
+
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts`, { params });
     return res.data;
   } catch (err) {
     console.error('Error fetching posts:', err);
+    throw err;
   }
 };
 
@@ -20,21 +27,16 @@ const PostList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { data, error, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
-    queryKey: ['posts'],
+    queryKey: ['posts', searchParams.toString()],
     queryFn: ({ pageParam = 1 }) => fetchPosts(pageParam, searchParams),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) => (lastPage.hasMorePosts ? pages.length + 1 : undefined)
   });
 
-  console.log(data);
-
   const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
-  console.log('Fetched data:', allPosts);
 
   if (status === 'pending') return 'Loading...';
   if (status === 'error') return 'An error has occurred: ' + error.message;
-
-  console.log('Fetched data:', data);
 
   return (
     <InfiniteScroll

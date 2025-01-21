@@ -1,5 +1,4 @@
 import { AuthObject } from '@clerk/types';
-import { Request } from 'express';
 
 declare global {
   namespace Express {
@@ -68,4 +67,11 @@ export interface INewPost {
   category?: string;
   descripition?: string;
   content: string;
+}
+
+export interface QueryParams {
+  category?: string;
+  title?: { $regex: string; $options: string };
+  user?: string;
+  createdAt?: { $gte: Date };
 }

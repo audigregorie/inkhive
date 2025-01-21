@@ -8,4 +8,4 @@ postRouter.get('/', getPosts);
 postRouter.get('/:slug', getPost);
 postRouter.post('/', createPost);
 postRouter.delete('/:id', deletePost);
-postRouter.patch('/feature', featurePost);
+postRouter.patch('/featured', featurePost);

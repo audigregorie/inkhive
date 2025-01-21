@@ -2,28 +2,73 @@ import { Request, Response } from 'express';
 import Post from '../models/post.model';
 import { User } from '../models/user.model';
 import ImageKit from 'imagekit';
-import { INewPost, IPost, IUser } from '../utils/interfaces';
-
-export const uploadAuth = async (req: Request, res: Response) => {
-  const imagekit = new ImageKit({
-    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT as string,
-    publicKey: process.env.IMAGEKIT_PUBLIC_KEY as string,
-    privateKey: process.env.IMAGEKIT_PRIVATE_KEY as string
-  });
-  const result = imagekit.getAuthenticationParameters();
-  res.send(result);
-};
+import { INewPost, IPost, IUser, QueryParams } from '../utils/interfaces';
 
 export const getPosts = async (req: Request, res: Response) => {
   const pageNumber = parseInt(req.query.page as string) || 1;
-  const limitNumber = parseInt(req.query.limit as string) || 2;
+  const limitNumber = parseInt(req.query.limit as string) || 10;
 
-  const posts = await Post.find<IPost>()
+  const query: QueryParams = {};
+
+  console.log(req.query);
+
+  const category = req.query.category as string;
+  const author = req.query.author as string;
+  const searchQuery = req.query.search as string;
+  const sortQuery = req.query.sort as string;
+  // const featured = req.query.featured as string;
+
+  if (category) {
+    query.category = category;
+  }
+
+  if (searchQuery) {
+    query.title = { $regex: searchQuery, $options: 'i' };
+  }
+
+  if (author) {
+    const user = await User.findOne({ username: author }).select('_id');
+
+    if (!user) {
+      res.status(404).json('Post not found');
+      return;
+    }
+
+    query.user = user._id as string;
+  }
+
+  let sortObj: { [key: string]: 1 | -1 } = { createdAt: -1 };
+  if (sortQuery) {
+    switch (sortQuery) {
+      case 'newest':
+        sortObj = { createdAt: -1 };
+        break;
+      case 'oldest':
+        sortObj = { createdAt: 1 };
+        break;
+      case 'popular':
+        sortObj = { visit: -1 };
+        break;
+      case 'trending':
+        sortObj = { visit: -1 };
+        query.createdAt = {
+          $gte: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)
+        };
+        break;
+      default:
+        break;
+    }
+  }
+
+  const posts = await Post.find<IPost>(query)
     .populate('user', 'username')
+    .sort(sortObj)
     .limit(limitNumber)
     .skip((pageNumber - 1) * limitNumber);
 
-  const totalPosts = await Post.countDocuments();
+  // testing
+  const totalPosts = await Post.countDocuments(query);
+  // const totalPosts = await Post.countDocuments();
   const hasMorePosts = pageNumber * limitNumber < totalPosts;
 
   res.status(200).json({ posts, hasMorePosts });
@@ -115,4 +160,14 @@ export const featurePost = async (req: Request, res: Response) => {
   const updatedPost = await Post.findByIdAndUpdate(postId, { isFeatured: !isFeatured }, { new: true });
 
   res.status(200).json(updatedPost);
+};
+
+export const uploadAuth = async (req: Request, res: Response) => {
+  const imagekit = new ImageKit({
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT as string,
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY as string,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY as string
+  });
+  const result = imagekit.getAuthenticationParameters();
+  res.send(result);
 };

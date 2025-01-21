@@ -32,7 +32,6 @@ const UploadMedia: React.FC<UploadMediaProps> = ({ children, setProgress, setDat
   };
 
   const handleUploadSuccess = (res: any) => {
-    // console.log('Upload successful:', res);
     console.log('Upload successful:', JSON.stringify(res, null, 2));
 
     setData(res);

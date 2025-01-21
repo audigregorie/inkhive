@@ -77,7 +77,7 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
     mutationFn: async () => {
       const token = await getToken();
       return axios.patch(
-        `${import.meta.env.VITE_API_URL}/posts/feature`,
+        `${import.meta.env.VITE_API_URL}/posts/featured`,
         {
           postId: post._id
         },
