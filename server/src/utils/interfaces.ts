@@ -74,4 +74,5 @@ export interface QueryParams {
   title?: { $regex: string; $options: string };
   user?: string;
   createdAt?: { $gte: Date };
+  isFeatured?: boolean;
 }

@@ -16,7 +16,7 @@ export const getPosts = async (req: Request, res: Response) => {
   const author = req.query.author as string;
   const searchQuery = req.query.search as string;
   const sortQuery = req.query.sort as string;
-  // const featured = req.query.featured as string;
+  const featured = req.query.featured as string;
 
   if (category) {
     query.category = category;
@@ -58,6 +58,10 @@ export const getPosts = async (req: Request, res: Response) => {
       default:
         break;
     }
+  }
+
+  if (featured) {
+    query.isFeatured = true;
   }
 
   const posts = await Post.find<IPost>(query)
