@@ -43,7 +43,7 @@ const Home = () => {
       <PostCategories />
       <FeaturedPosts />
       <div>
-        <h1 className="my-8 text-2xl text-gray-600">Recent Posts</h1>
+        <h2 className="my-8 text-2xl text-gray-600">Recent Posts</h2>
         <PostList />
       </div>
     </div>
