@@ -2,11 +2,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Posts from './pages/Posts';
-import SinglePost from './pages/SinglePost';
 import Login from './features/Auth/Login';
 import Register from './features/Auth/Register';
 import CreatePost from './pages/CreatePost';
 import NotFound from './components/NotFound';
+import SinglePost from './pages/SinglePost';
+import About from './pages/About';
 
 function App() {
   const router = createBrowserRouter([
@@ -25,6 +26,7 @@ function App() {
           path: '/:slug',
           element: <SinglePost />
         },
+
         {
           path: '/create',
           element: <CreatePost />
@@ -36,6 +38,10 @@ function App() {
         {
           path: '/register',
           element: <Register />
+        },
+        {
+          path: '/about',
+          element: <About />
         },
         {
           path: '/not-found',

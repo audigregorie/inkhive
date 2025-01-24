@@ -27,7 +27,6 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
     }
   });
 
-  const isAdmin = user?.publicMetadata?.role === 'admin' || false;
   const isSaved = savedPosts?.data?.some((savedPost: string) => savedPost === post._id);
 
   const deleteMutation = useMutation({
@@ -136,25 +135,23 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
         </div>
       )}
 
-      {isAdmin && (
-        <div onClick={handleFeature} className="flex cursor-pointer items-center gap-2 pb-2 text-sm">
-          {featureMutation.isPending ? (
-            post.isFeatured ? (
-              <IoStarOutline />
-            ) : (
-              <IoStar />
-            )
-          ) : post.isFeatured ? (
-            <IoStar className="h-4 w-4" />
+      <div onClick={handleFeature} className="flex cursor-pointer items-center gap-2 pb-2 text-sm">
+        {featureMutation.isPending ? (
+          post.isFeatured ? (
+            <IoStarOutline />
           ) : (
-            <IoStarOutline className="h-4 w-4" />
-          )}
-          <span>Feature this post</span>
-          {featureMutation.isPending && <span className="text-xs">In progress...</span>}
-        </div>
-      )}
+            <IoStar />
+          )
+        ) : post.isFeatured ? (
+          <IoStar className="h-4 w-4" />
+        ) : (
+          <IoStarOutline className="h-4 w-4" />
+        )}
+        <span>Feature this post</span>
+        {featureMutation.isPending && <span className="text-xs">In progress...</span>}
+      </div>
 
-      {user && (post.user.username === user.username || isAdmin) && (
+      {user && post.user.username === user.username && (
         <div onClick={handleDelete} className="flex cursor-pointer items-center gap-2 text-sm">
           <IoTrash className="h-4 w-4 text-red-700" />
           <span>Delete this post</span>

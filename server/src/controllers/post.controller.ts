@@ -10,8 +10,6 @@ export const getPosts = async (req: Request, res: Response) => {
 
   const query: QueryParams = {};
 
-  console.log(req.query);
-
   const category = req.query.category as string;
   const author = req.query.author as string;
   const searchQuery = req.query.search as string;

@@ -9,8 +9,8 @@ const Home = () => {
     <div className="mt-4 flex flex-col gap-4">
       <div className="flex gap-4">
         <Link to="/">Home</Link>
-        <span>•</span>
-        <span className="text-blue-800">Blogs and Articles</span>
+        {/* <span>•</span> */}
+        {/* <span className="text-blue-800">Blogs and Articles</span> */}
       </div>
 
       <div className="flex items-center justify-between">

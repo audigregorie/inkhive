@@ -18,7 +18,6 @@ const FeaturedPosts = () => {
   if (isLoading) return 'loading';
   if (error) return 'An error has occurred: ' + error.message;
 
-  console.log(data);
   const featuredPosts = data.posts;
   if (!featuredPosts || featuredPosts.length === 0) {
     return;

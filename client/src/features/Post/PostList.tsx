@@ -7,11 +7,10 @@ import { useSearchParams } from 'react-router-dom';
 const fetchPosts = async (pageParam: number, searchParams: URLSearchParams) => {
   try {
     const searchParamsObj = Object.fromEntries([...searchParams]);
-    console.log(searchParamsObj);
 
     const params = {
       page: pageParam,
-      limit: 2,
+      limit: location.pathname === '/' ? 2 : 10,
       ...searchParamsObj
     };
 
@@ -24,7 +23,7 @@ const fetchPosts = async (pageParam: number, searchParams: URLSearchParams) => {
 };
 
 const PostList = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const { data, error, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
     queryKey: ['posts', searchParams.toString()],
@@ -39,20 +38,18 @@ const PostList = () => {
   if (status === 'error') return 'An error has occurred: ' + error.message;
 
   return (
-    <InfiniteScroll
-      dataLength={allPosts.length}
-      next={fetchNextPage}
-      hasMore={!!hasNextPage}
-      loader={<h4>Loading more posts...</h4>}
-      endMessage={
-        <p>
-          <b>All posts loaded.</b>
-        </p>
-      }>
-      {allPosts.map((post) => (
-        <PostListItem key={post._id} post={post} />
-      ))}
-    </InfiniteScroll>
+    <>
+      <InfiniteScroll
+        dataLength={allPosts.length}
+        next={fetchNextPage}
+        hasMore={!!hasNextPage}
+        loader={<h4>Loading more posts...</h4>}
+        endMessage={<p className="mb-8 font-bold">All posts loaded.</p>}>
+        {allPosts.map((post) => (
+          <PostListItem key={post._id} post={post} />
+        ))}
+      </InfiniteScroll>
+    </>
   );
 };
 

@@ -19,8 +19,8 @@ const Header = () => {
         <div
           className={`absolute top-16 flex h-screen flex-col items-center justify-center gap-8 bg-[#e6e6ff] text-lg font-medium transition-all ease-in-out ${open ? '-right-0' : '-right-[100%]'}`}>
           <Link to="/">Home</Link>
-          <Link to={'/'}>Trending</Link>
-          <Link to={'/'}>Most Popular</Link>
+          <Link to={`/posts?sort=trending`}>Trending</Link>
+          <Link to={'/posts?sort=popular'}>Most Popular</Link>
           <Link to={'/'}>About</Link>
           <SignedOut>
             <Link to="/login" className="rounded-3xl bg-blue-800 px-4 py-2 text-white">
@@ -35,9 +35,9 @@ const Header = () => {
       {/* Desktop */}
       <div className="hidden items-center gap-8 font-medium md:flex xl:gap-12">
         <Link to="/">Home</Link>
-        <Link to={'/'}>Trending</Link>
-        <Link to={'/'}>Most Popular</Link>
-        <Link to={'/'}>About</Link>
+        <Link to={`/posts?sort=trending`}>Trending</Link>
+        <Link to={'/posts?sort=popular'}>Most Popular</Link>
+        <Link to={'/about'}>About</Link>
         <SignedOut>
           <Link to="/login">
             <button className="rounded-3xl bg-blue-800 px-4 py-2 text-white">Login 👋</button>

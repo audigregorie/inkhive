@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import PostList from '../features/Post/PostList';
 import SideMenu from '../components/SideMenu';
+import { Link } from 'react-router-dom';
 
 const Posts = () => {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="">
-      <h1 className="mb-8 text-2xl">Development Blog</h1>
+      <div className="my-4 flex gap-4">
+        <Link to="/">Home</Link>
+        <span>•</span>
+        <span className="text-blue-800">Blogs and Articles</span>
+      </div>
+
       <button onClick={() => setOpen((prev) => !prev)} className="mb-4 rounded-2xl bg-blue-800 px-4 py-2 text-sm text-white md:hidden">
         {open ? 'Close' : 'Filter or Search'}
       </button>

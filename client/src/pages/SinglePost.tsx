@@ -18,7 +18,7 @@ const SinglePost = () => {
 
   if (!slug) {
     navigate('/not-found', { replace: true });
-    return null;
+    return <></>;
   }
 
   const {
@@ -32,7 +32,10 @@ const SinglePost = () => {
 
   if (isLoading) return 'loading';
   if (error) return 'An error has occurred: ' + error.message;
-  if (!post) return navigate('/not-found');
+  if (!post) {
+    navigate('/not-found');
+    return <></>;
+  }
 
   return (
     <div className="flex flex-col gap-8">
