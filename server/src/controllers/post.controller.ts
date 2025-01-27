@@ -135,6 +135,7 @@ export const deletePost = async (req: Request, res: Response) => {
 
   if (!deletedPost) {
     res.status(403).json('Users are only permitted to delete their own posts');
+    return;
   }
   res.status(200).json('Post deleted sucessfully');
 };
@@ -149,6 +150,7 @@ export const featurePost = async (req: Request, res: Response) => {
   const role = req.auth.sessionClaims?.metadata?.role || 'user';
   if (role !== 'admin') {
     res.status(403).json('Admins are only permitted to feature posts');
+    return;
   }
 
   const postId = req.body.postId;

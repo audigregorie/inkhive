@@ -68,7 +68,7 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
       queryClient.invalidateQueries({ queryKey: ['savedPosts'] });
     },
     onError: () => {
-      toast.error('Failed to delete post');
+      toast.error('Failed to save post');
     }
   });
 
@@ -91,7 +91,7 @@ const SinglePostSidebarAction = ({ post }: PostListItemProps) => {
       queryClient.invalidateQueries({ queryKey: ['post', post.slug] });
     },
     onError: () => {
-      toast.error('Failed to delete post');
+      toast.error('Failed to feature post');
     }
   });
 

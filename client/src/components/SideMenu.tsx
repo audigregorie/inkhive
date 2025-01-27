@@ -15,16 +15,16 @@ const SideMenu = () => {
 
   const handleFilterCategories = (category: string) => {
     const params = Object.fromEntries([...searchParams]);
-    if (params.category !== category) {
-      params.category = category;
-      setSearchParams(params);
-    }
+    category === 'all' ? delete params.category : (params.category = category);
+
+    setSearchParams(params);
   };
 
   return (
     <div className="sticky top-8 h-max px-4">
       <h1 className="mb-4 text-sm font-medium">Search</h1>
       <Search />
+
       <h1 className="mb-4 mt-8 text-sm font-medium">Filter</h1>
       <div className="flex flex-col gap-2 text-sm">
         <label htmlFor="" className="flex cursor-pointer items-center gap-2">
@@ -68,10 +68,14 @@ const SideMenu = () => {
           Oldest
         </label>
       </div>
+
       <h1 className="mb-4 mt-8 text-sm font-medium">Categories</h1>
       <div className="flex flex-col gap-2 text-sm">
-        <span onClick={() => handleFilterCategories('general')} className="cursor-pointer hover:text-blue-700">
+        <span onClick={() => handleFilterCategories('all')} className="cursor-pointer hover:text-blue-700">
           All
+        </span>
+        <span onClick={() => handleFilterCategories('general')} className="cursor-pointer hover:text-blue-700">
+          General
         </span>
         <span onClick={() => handleFilterCategories('web-design')} className="cursor-pointer hover:text-blue-700">
           Web Design

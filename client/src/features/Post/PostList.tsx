@@ -38,18 +38,16 @@ const PostList = () => {
   if (status === 'error') return 'An error has occurred: ' + error.message;
 
   return (
-    <>
-      <InfiniteScroll
-        dataLength={allPosts.length}
-        next={fetchNextPage}
-        hasMore={!!hasNextPage}
-        loader={<h4>Loading more posts...</h4>}
-        endMessage={<p className="mb-8 font-bold">All posts loaded.</p>}>
-        {allPosts.map((post) => (
-          <PostListItem key={post._id} post={post} />
-        ))}
-      </InfiniteScroll>
-    </>
+    <InfiniteScroll
+      dataLength={allPosts.length}
+      next={fetchNextPage}
+      hasMore={!!hasNextPage}
+      loader={<h4>Loading more posts...</h4>}
+      endMessage={allPosts.length === 0 ? <p>No posts found under this category.</p> : <p> All posts loaded. </p>}>
+      {allPosts.map((post) => (
+        <PostListItem key={post._id} post={post} />
+      ))}
+    </InfiniteScroll>
   );
 };
 
