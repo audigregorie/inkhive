@@ -68,9 +68,7 @@ export const getPosts = async (req: Request, res: Response) => {
     .limit(limitNumber)
     .skip((pageNumber - 1) * limitNumber);
 
-  // testing
   const totalPosts = await Post.countDocuments(query);
-  // const totalPosts = await Post.countDocuments();
   const hasMorePosts = pageNumber * limitNumber < totalPosts;
 
   res.status(200).json({ posts, hasMorePosts });

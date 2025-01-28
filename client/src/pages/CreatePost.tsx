@@ -6,7 +6,6 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
-import { MoonLoader } from 'react-spinners';
 import UploadMedia from '../components/UploadMedia';
 import { toast } from 'sonner';
 
@@ -17,7 +16,7 @@ const CreatePost = () => {
   const [video, setVideo] = useState<ImageKitMediaResponse | null>(null);
   const [progress, setProgress] = useState<number>(0);
 
-  // testing fix Error span in multiple places
+  // testing fix double Error span
   const [onErrorSpanCover, setOnErrorSpanCover] = useState<ReactNode | null>(null);
   const [onErrorSpanImage, setOnErrorSpanImage] = useState<ReactNode | null>(null);
   const [onErrorSpanVideo, setOnErrorSpanVideo] = useState<ReactNode | null>(null);
@@ -48,15 +47,23 @@ const CreatePost = () => {
     }
   });
 
+  const removeHtmlTags = (value: string): string => {
+    const div = document.createElement('div');
+    div.innerHTML = value;
+    return div.textContent || div.innerText || '';
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const strippedContent = removeHtmlTags(value);
 
     const formData: NewPost = {
       image: cover?.filePath || '',
       title: title.trim(),
       category: category,
       description: description,
-      content: value
+      content: strippedContent
     };
 
     mutation.mutate(formData);
@@ -149,11 +156,10 @@ const CreatePost = () => {
 
         <ReactQuill theme="snow" value={value} onChange={setValue} readOnly={progress > 0 && progress < 100} className="flex-1 rounded-xl bg-white shadow-md" />
 
-        {/* // testing fix moonloader */}
         <button
           disabled={mutation.isPending || (progress > 0 && progress < 100)}
           className="mt-4 w-1/12 rounded-xl bg-blue-800 p-2 font-medium text-white disabled:cursor-not-allowed disabled:bg-blue-400">
-          {mutation.isPending ? <MoonLoader size={20} /> : 'Send'}
+          {mutation.isPending ? <span className="text-xs">In progress...</span> : <span>Send</span>}
         </button>
         {mutation.isError && <span>{mutation.error.message}</span>}
       </form>

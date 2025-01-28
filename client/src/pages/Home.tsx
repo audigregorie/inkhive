@@ -9,15 +9,14 @@ const Home = () => {
     <div className="mt-4 flex flex-col gap-4">
       <div className="flex gap-4">
         <Link to="/">Home</Link>
-        {/* <span>•</span> */}
-        {/* <span className="text-blue-800">Blogs and Articles</span> */}
       </div>
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 md:text-5xl lg:text-6xl">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
+          <h1 className="text-2xl font-bold text-gray-800 md:text-5xl lg:text-6xl">Welcome to Inkhive — Where hives are created through ink</h1>
           <p className="text-md mt-8 md:text-xl">
-            Veritatis debitis aut temporibus enim saepe accusantium ipsam, ad iusto, possimus cum alias repellat sequi quas itaque.
+            Discover a world of creativity and self-expression. Share your stories, connect with like-minded individuals, and be inspired by diverse
+            perspectives.
           </p>
         </div>
 
