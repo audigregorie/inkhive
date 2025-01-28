@@ -1,3 +1,22 @@
+# Inkhive
+
+Blogging platform
+
+**Technologies used**:
+
+- React
+- Typescript
+- Express
+- MongoDB
+- Clerk
+- Imagekit
+
+<img src="./client/src/assets/inkhive-home-page.png" alt="Inkhive home page" width="50%" height="auto">
+
+Live demo:
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
