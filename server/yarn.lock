@@ -42,6 +42,13 @@
   dependencies:
     csstype "3.1.1"
 
+"@clerk/types@^4.44.1":
+  version "4.44.1"
+  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-4.44.1.tgz#2ac2bf525ef4fc8fa42748466b13969f8798444e"
+  integrity sha512-CP+ABOzzHkVVbFMTZpcf/hC2rewtVJOxeFBbvmK0p2emDJwp3tkyGhw03mrt4yiEpeEgdD3n+N0weEadVFu3mw==
+  dependencies:
+    csstype "3.1.1"
+
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz#00629c35a688e05a88b1cda684fb9d5e73f000a1"

@@ -1,9 +1,9 @@
-import { AuthObject } from '@clerk/types';
+// import { Auth } from '@clerk/types';
 
 declare global {
   namespace Express {
     interface Request {
-      auth: AuthObject;
+      auth: any;
     }
   }
 }
