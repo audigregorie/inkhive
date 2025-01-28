@@ -13,6 +13,8 @@ Blogging platform
 
 <img src="./client/src/assets/inkhive-home-page.png" alt="Inkhive home page" width="50%" height="auto">
 
+Live Demo: [Inkhive](https://inkhive-client.onrender.com/)
+
 ---
 
 # React + TypeScript + Vite
